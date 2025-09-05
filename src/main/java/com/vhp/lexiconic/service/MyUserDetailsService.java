@@ -1,7 +1,7 @@
 package com.vhp.lexiconic.service;
 
-import com.vhp.lexiconic.model.UserPrincipal;
-import com.vhp.lexiconic.model.Users;
+import com.vhp.lexiconic.domain.entity.UserPrincipal;
+import com.vhp.lexiconic.domain.entity.Users;
 import com.vhp.lexiconic.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

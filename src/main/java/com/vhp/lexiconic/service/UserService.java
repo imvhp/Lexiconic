@@ -1,7 +1,7 @@
 package com.vhp.lexiconic.service;
 
-import com.vhp.lexiconic.model.Role;
-import com.vhp.lexiconic.model.Users;
+import com.vhp.lexiconic.domain.entity.Role;
+import com.vhp.lexiconic.domain.entity.Users;
 import com.vhp.lexiconic.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

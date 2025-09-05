@@ -1,6 +1,6 @@
 package com.vhp.lexiconic.controller;
 
-import com.vhp.lexiconic.model.Users;
+import com.vhp.lexiconic.domain.entity.Users;
 import com.vhp.lexiconic.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
