@@ -1,13 +1,10 @@
 package com.vhp.lexiconic.service;
 
-import com.vhp.lexiconic.domain.dto.DeckDto;
 import com.vhp.lexiconic.domain.entity.Deck;
 import com.vhp.lexiconic.repository.DeckRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class DeckService {
@@ -17,7 +14,7 @@ public class DeckService {
         this.deckRepository = deckRepository;
     }
 
-    public Deck creat(Deck deck) {
+    public Deck create(Deck deck) {
         if(deck.getId() != null) throw new IllegalArgumentException("id must be null");
         if(deck.getName() == null || deck.getName().isBlank()) throw new IllegalArgumentException("title must not be null or blank");
 

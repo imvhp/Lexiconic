@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/deck")
+@RequestMapping("/decks")
 public class DeckController {
     private final DeckRepository deckRepository;
     private final DeckService deckService;
@@ -22,7 +22,7 @@ public class DeckController {
         this.deckMapper = deckMapper;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<DeckDto> allDecks() {
         return deckRepository.findAll()
                 .stream()
@@ -30,19 +30,19 @@ public class DeckController {
                 .toList();
     }
 
-    @PostMapping("/create")
+    @PostMapping("create-deck")
     public DeckDto createDeck(@RequestBody DeckDto dto) {
-        Deck deck = deckService.creat(deckMapper.toEntity(dto));
+        Deck deck = deckService.create(deckMapper.toEntity(dto));
         return deckMapper.toDto(deck);
     }
 
-    @PutMapping("/edit")
+    @PutMapping("/edit-deck")
     public DeckDto updateDeck(@RequestBody DeckDto deckDto) {
         Deck deck = deckService.update(deckMapper.toEntity(deckDto));
         return deckMapper.toDto(deck);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete-deck")
     public void deleteDeck(@RequestBody DeckDto deckDto) {
         deckService.delete(deckMapper.toEntity(deckDto));
     }

@@ -22,8 +22,6 @@ public class FlashCard {
     private String pronunciation;
     private String partOfSpeech;
     private String audio;
-
-    @Column(nullable = false)
     private String image;
     private String definition;
     private String example;
