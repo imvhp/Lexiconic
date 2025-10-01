@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+    <!-- Navbar -->
+    <div th:fragment="navbar">
+    <div class="navbar navbar-expand-sm navbar-light fixed-top justify-content-between px-3">
+        <!-- Left side -->
+        <div class="d-flex align-items-center">
+            <button id="toggle-btn" type="button" class="btn btn-link p-0 me-2">
+                <i class="bi bi-list fs-4"></i>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="/image/lexiconic.png" height="35" alt="">
+            </a>
+        </div>
+
+        <!-- Right side -->
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle fs-4"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div th:fragment="sidebar" class="sidebar">
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="/home">
+                    <span class="icon">
+                        <i class="bi bi-house-fill"></i>
+                    </span>
+                    <span class="description">
+                        Home
+                    </span>
+                </a>
+                <a class="nav-link" href="/dictionary">
+                    <span class="icon">
+                        <i class="bi bi-journal-bookmark-fill"></i>
+                    </span>
+                    <span class="description">
+                        Dictionary
+                    </span>
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="icon">
+                        <i class="bi bi-stack"></i>
+                    </span>
+                    <span class="description">
+                        Decks
+                    </span>
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="icon">
+                        <i class="bi bi-bell-fill"></i>
+                    </span>
+                    <span class="description">
+                        Notifications
+                    </span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Content area that will be replaced -->
+        <div class="content" th:fragment="content">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/navbar.js"></script>
+
+</body>
+</html>

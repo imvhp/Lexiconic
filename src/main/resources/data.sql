@@ -1,2 +1,2 @@
-INSERT INTO users(id, username, email, password) VALUES('5928107e-bba6-4127-87f9-353445ec31da', 'vhp1', 'vhp1@gmail.com', '$2a$12$9U6SfhMVybylBah2qMEvPurhKrQQBX0CECowo1BqCxQa6udhcJKt.')
-INSERT INTO users(id, username, email, password) VALUES('5928107e-bba6-4127-87f9-353445ec31db', 'vhp2', 'vhp2@gmail.com', '$2a$12$LSdQswkUeF4sKGE1mnrmOekdc2CvRGqcSax7oyAGmmshnE41YbkSG')
+INSERT INTO users(id, username, email, password) VALUES('5928107e-bba6-4127-87f9-353445ec31da', 'vhp1', 'vhp1@gmail.com', '$2a$12$x4DtaA1/Pu0ijshKkvDL8untBTzLZ7C8VnQQmYlqLZFfr0aAJXVFu')
+INSERT INTO users(id, username, email, password) VALUES('5928107e-bba6-4127-87f9-353445ec31db', 'vhp2', 'vhp2@gmail.com', '$2a$12$VJfnd5SQQSDYZQukbP6MpeahhQMHcniCPd3SabcKmJXneUfWUXPmO')

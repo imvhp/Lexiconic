@@ -3,6 +3,7 @@ package com.lexiconic.mapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lexiconic.domain.dto.DictionaryDto;
+import com.lexiconic.domain.dto.UnsplashResponseDto;
 import com.lexiconic.domain.dto.WordDto;
 import com.lexiconic.domain.entity.FlashCard;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ public class WordMapper {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public WordDto toWordDto(DictionaryDto dto) {
+    public WordDto toWordDto(DictionaryDto dto, UnsplashResponseDto unsplash) {
         String word = null;
 
         // 1) try app-shortdef.hw
@@ -60,7 +61,13 @@ public class WordMapper {
             definition = "No definition available";
         }
 
-        return new WordDto(word, pronunciation, partOfSpeech, audio, definition, example);
+        String imageUrl = (unsplash != null
+                && unsplash.results() != null
+                && !unsplash.results().isEmpty())
+                ? unsplash.results().getFirst().urls().small()
+                : "default-placeholder-url";
+
+        return new WordDto(word, pronunciation, partOfSpeech, audio, definition, example, imageUrl);
     }
     public String buildAudioUrl(String audio) {
         // Merriam-Webster audio URL rules
@@ -92,7 +99,7 @@ public class WordMapper {
                 word.pronunciation(),
                 word.partOfSpeech(),
                 word.audioUrl(),
-                null,
+                word.imageUrl(),
                 word.definition(),
                 word.example(),
                 null,

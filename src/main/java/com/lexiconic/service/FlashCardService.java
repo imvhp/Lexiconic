@@ -1,9 +1,7 @@
 package com.lexiconic.service;
 
-import com.lexiconic.domain.dto.WordDto;
 import com.lexiconic.domain.entity.Deck;
 import com.lexiconic.domain.entity.FlashCard;
-import com.lexiconic.mapper.WordMapper;
 import com.lexiconic.repository.DeckRepository;
 import com.lexiconic.repository.FlashCardRepository;
 import org.springframework.stereotype.Service;

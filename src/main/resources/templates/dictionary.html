@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="main-container">
+    <div th:replace="fragments/navbar :: sidebar"></div>
+
+    <div class="content">
+
+        <!-- Remote Control (Search Input) -->
+        <div class="remote">
+            <input type="text" id="search-input" placeholder="Type a word..." autocomplete="off">
+            <button id="remote-search">🔍</button>
+        </div>
+
+        <div class="tv-container">
+
+            <!-- TV Screen (Flashcard) -->
+            <div class="screen">
+                <div class="flashcard" id="flashcard" th:if="${word}">
+                    <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h2 th:text="${word.word}">Word</h2>
+                        <p th:text="${word.partOfSpeech}">Part of speech goes here</p>
+                        <p th:text="${word.pronunciation}">Definition goes here</p>
+                        <button class="audio-btn" th:if="${word.audioUrl}"
+                                onclick="playAudio(this)"
+                                th:data-audio="${word.audioUrl}">
+                            🔊 Play
+                        </button>
+                    </div>
+                    <div class="flashcard-back">
+                        <img th:if="${word.imageUrl}" th:src="${word.imageUrl}" alt="word image"/>
+                        <div class="flashcard-text">
+                            <p th:text="${word.definition}">Definition goes here</p>
+                            <p th:text="${word.example}">Definition goes here</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Static TV Effect Overlay -->
+                <div class="tv-static"></div>
+            </div>
+
+            <!-- Knobs still act as triggers -->
+            <div class="knob" id="volume-knob"></div>
+            <div class="knob" id="channel-knob"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/search.js"></script>
+</body>
+</html>

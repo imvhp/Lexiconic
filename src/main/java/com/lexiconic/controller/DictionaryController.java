@@ -1,51 +1,48 @@
 package com.lexiconic.controller;
 
 import com.lexiconic.domain.dto.DictionaryDto;
+import com.lexiconic.domain.dto.UnsplashResponseDto;
 import com.lexiconic.domain.dto.WordDto;
 import com.lexiconic.mapper.WordMapper;
-import org.springframework.beans.factory.annotation.Value;
+import com.lexiconic.service.DictionaryService;
+import com.lexiconic.service.ImageService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@RestController
+@Controller
 @RequestMapping("/dictionary")
 public class DictionaryController {
 
-    private static final String DICTIONARY_API_URL = "https://www.dictionaryapi.com/api/v3/references/learners/json/{word}";
-    
-    private final String apiKey;
-    private final RestTemplate restTemplate;
+    private final DictionaryService dictionaryService;
     private final WordMapper wordMapper;
+    private final ImageService imageService;
 
-    public DictionaryController(
-            @Value("${api.key}") String apiKey,
-            RestTemplate restTemplate,
-            WordMapper wordMapper) {
-        this.apiKey = apiKey;
-        this.restTemplate = restTemplate;
+    public DictionaryController(DictionaryService dictionaryService, WordMapper wordMapper, ImageService imageService) {
+        this.dictionaryService = dictionaryService;
         this.wordMapper = wordMapper;
+        this.imageService = imageService;
+    }
+
+
+    @GetMapping
+    public String dictionary() {
+        return "dictionary";
     }
 
     @GetMapping("/{word}")
-    public WordDto lookup(@PathVariable String word) {
-        DictionaryDto[] response = fetchWordDefinition(word);
+    public String lookup(@PathVariable String word, Model model) {
+        DictionaryDto[] response = dictionaryService.fetchWordDefinition(word);
+        UnsplashResponseDto unsplashResponseDto = imageService.getImageUrl(word);
 
         if (response == null || response.length == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Word not found");
         }
 
-        return wordMapper.toWordDto(response[0]);
-    }
-    
-    private DictionaryDto[] fetchWordDefinition(String word) {
-        String url = UriComponentsBuilder.fromUriString(DICTIONARY_API_URL)
-                .queryParam("key", apiKey)
-                .buildAndExpand(word)
-                .toUriString();
-                
-        return restTemplate.getForObject(url, DictionaryDto[].class);
+        WordDto wordDto =  wordMapper.toWordDto(response[0], unsplashResponseDto);
+        model.addAttribute("word", wordDto);
+        return "dictionary";
     }
 }

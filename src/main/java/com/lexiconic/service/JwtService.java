@@ -21,18 +21,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private String secretKey = "";
-
-    public JwtService() {
-        try {
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey sk = keyGenerator.generateKey();
-            secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private String secretKey = "pKh0a+erSm2lDcOAVN9Ql/g6+koLc0Emxx8WXwUU0oY=";
 
     public String generateToken(String username) {
 
@@ -72,8 +61,8 @@ public class JwtService {
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final String userEmail = extractUsername(token);
+        return (userEmail.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {

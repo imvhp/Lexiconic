@@ -4,6 +4,7 @@ import com.lexiconic.service.JwtService;
 import com.lexiconic.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
@@ -28,13 +29,19 @@ public class JwtFilter extends OncePerRequestFilter{
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
+
         String token = null;
         String username = null;
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            username = jwtService.extractUsername(token);
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwt".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    username = jwtService.extractUsername(token);
+                    break;
+                }
+            }
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

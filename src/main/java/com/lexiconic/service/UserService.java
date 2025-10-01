@@ -23,16 +23,16 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-    public Users register(Users user) {
+    public void register(Users user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRole(Role.STUDENT);
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public String verify(Users user) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         if(authentication.isAuthenticated()) {
-            return jwtService.generateToken(user.getUsername());
+            return jwtService.generateToken(user.getEmail());
         }
         return "fail";
     }

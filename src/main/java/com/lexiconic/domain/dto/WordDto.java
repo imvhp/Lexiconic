@@ -6,6 +6,7 @@ public record WordDto(
         String partOfSpeech,
         String audioUrl,
         String definition,
-        String example
+        String example,
+        String imageUrl
 ) {}
 
