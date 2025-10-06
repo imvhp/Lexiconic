@@ -22,14 +22,32 @@
     }
 
     const flashcard = document.getElementById('flashcard');
-    const knobs = document.querySelectorAll('.knob');
 
-    knobs.forEach(knob => {
-        knob.addEventListener('click', () => {
-            triggerStatic(() => {
-                flashcard.classList.toggle('flipped');
-            });
-        });
+    // Flip card (volume knob)
+    document.getElementById("volume-knob")?.addEventListener("click", () => {
+        triggerStatic(() => {
+            flashcard.classList.toggle("flipped");
+        })
+    });
+
+    // Add to Deck (channel knob)
+    document.getElementById("channel-knob")?.addEventListener("click", () => {
+        const wordId = document.querySelector(".deck-btn")?.dataset.wordid;
+
+        if (wordId) {
+            fetch(`/deck/add/${wordId}`, { method: "POST" })
+                .then(res => {
+                    if (res.ok) {
+                        alert("✅ Word added to deck!");
+                        // channel-change effect
+                        const tv = document.querySelector(".tv-static");
+                        tv.classList.add("channel-change");
+                        setTimeout(() => tv.classList.remove("channel-change"), 600);
+                    } else {
+                        alert("⚠️ Could not add to deck.");
+                    }
+                });
+        }
     });
 
 

@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lexiconic.domain.dto.DictionaryDto;
 import com.lexiconic.domain.dto.UnsplashResponseDto;
 import com.lexiconic.domain.dto.WordDto;
+import com.lexiconic.domain.entity.DictionaryCache;
 import com.lexiconic.domain.entity.FlashCard;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 
 @Component
@@ -14,7 +17,7 @@ public class WordMapper {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public WordDto toWordDto(DictionaryDto dto, UnsplashResponseDto unsplash) {
+    public WordDto dictionaryToWordDto(DictionaryDto dto, UnsplashResponseDto unsplash) {
         String word = null;
 
         // 1) try app-shortdef.hw
@@ -69,7 +72,7 @@ public class WordMapper {
 
         return new WordDto(word, pronunciation, partOfSpeech, audio, definition, example, imageUrl);
     }
-    public String buildAudioUrl(String audio) {
+    private String buildAudioUrl(String audio) {
         // Merriam-Webster audio URL rules
         String subdir;
         if (audio.startsWith("bix")) subdir = "bix";
@@ -108,4 +111,32 @@ public class WordMapper {
                 null
         );
     }
+
+
+    public WordDto dictionaryCacheToWordDto(DictionaryCache cache) {
+        return new WordDto(
+                cache.getWord(),
+                cache.getPronunciation(),
+                cache.getPartOfSpeech(),
+                cache.getAudioUrl(),
+                cache.getDefinition(),
+                cache.getExample(),
+                cache.getImageUrl()
+        );
+    }
+
+    public DictionaryCache wordDtoToDictionaryCache(WordDto wordDto) {
+        return new DictionaryCache(
+                null,
+                wordDto.word(),
+                wordDto.pronunciation(),
+                wordDto.partOfSpeech(),
+                wordDto.audioUrl(),
+                wordDto.definition(),
+                wordDto.example(),
+                wordDto.imageUrl(),
+                LocalDateTime.now()
+        );
+    }
+
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="main-container">
+    <div th:replace="fragments/navbar :: sidebar"></div>
+
+    <div class="content">
+        <div class="deck-header">
+            <input type="text" class="deck-search" placeholder="Search decks...">
+            <select class="deck-sort">
+                <option value="name">Sort by Name</option>
+                <option value="date">Sort by Date</option>
+            </select>
+        </div>
+
+        <div class="deck-grid">
+            <div class="deck" th:each="deck : ${decks}">
+                <div class="record-wrapper" >
+                    <div class="record-disc"></div>
+                    <div class="record-label" th:text="${deck.name}"></div>
+                    <div class="tonearm">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/dictionary.js"></script>
+</body>
+</html>

@@ -22,7 +22,6 @@ public class ImageService {
         this.restTemplate = restTemplate;
     }
 
-    @Cacheable("image")
     public UnsplashResponseDto getImageUrl(String word) {
         String url = IMAGE_API_URL
                 .replace("{keyword}", word)

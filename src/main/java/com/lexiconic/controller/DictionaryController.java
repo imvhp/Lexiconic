@@ -17,13 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class DictionaryController {
 
     private final DictionaryService dictionaryService;
-    private final WordMapper wordMapper;
-    private final ImageService imageService;
 
-    public DictionaryController(DictionaryService dictionaryService, WordMapper wordMapper, ImageService imageService) {
+    public DictionaryController(DictionaryService dictionaryService) {
         this.dictionaryService = dictionaryService;
-        this.wordMapper = wordMapper;
-        this.imageService = imageService;
     }
 
 
@@ -34,14 +30,7 @@ public class DictionaryController {
 
     @GetMapping("/{word}")
     public String lookup(@PathVariable String word, Model model) {
-        DictionaryDto[] response = dictionaryService.fetchWordDefinition(word);
-        UnsplashResponseDto unsplashResponseDto = imageService.getImageUrl(word);
-
-        if (response == null || response.length == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Word not found");
-        }
-
-        WordDto wordDto =  wordMapper.toWordDto(response[0], unsplashResponseDto);
+        WordDto wordDto = dictionaryService.getWord(word);
         model.addAttribute("word", wordDto);
         return "dictionary";
     }

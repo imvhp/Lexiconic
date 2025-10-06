@@ -5,11 +5,13 @@ import com.lexiconic.domain.entity.Deck;
 import com.lexiconic.mapper.DeckMapper;
 import com.lexiconic.repository.DeckRepository;
 import com.lexiconic.service.DeckService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/decks")
 public class DeckController {
     private final DeckRepository deckRepository;
@@ -23,11 +25,13 @@ public class DeckController {
     }
 
     @GetMapping
-    public List<DeckDto> allDecks() {
-        return deckRepository.findAll()
+    public String allDecks(Model model) {
+        List<DeckDto> decks = deckRepository.findAll()
                 .stream()
                 .map(deckMapper::toDto)
                 .toList();
+        model.addAttribute("decks", decks);
+        return "decks";
     }
 
     @PostMapping("create-deck")

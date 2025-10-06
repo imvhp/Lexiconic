@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=lexiconic'
+      - 'POSTGRES_PASSWORD=imvhp'
+      - 'POSTGRES_USER=vhp'
+    ports:
+      - '5432:5432'

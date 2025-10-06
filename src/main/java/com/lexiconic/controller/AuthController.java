@@ -21,6 +21,7 @@ public class AuthController {
         this.userService = userService;
     }
 
+
     @GetMapping("/home")
     public String dashboard() {
         return "home";
