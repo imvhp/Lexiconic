@@ -30,7 +30,7 @@ public class FlashCard {
     private String example;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "deck_id", nullable = false)
+    @JoinColumn(name = "deck_id")
     private Deck deck;
 
     @Column(name = "created", nullable = false)

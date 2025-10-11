@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="main-container">
-    <div th:replace="fragments/navbar :: sidebar"></div>
+    <div th:replace="~{fragments/navbar :: sidebar}"></div>
 
     <div class="content">
         <div class="deck-header">
@@ -17,15 +17,17 @@
         </div>
 
         <div class="deck-grid">
-            <div class="deck" th:each="deck : ${decks}">
-                <div class="record-wrapper" >
-                    <div class="record-disc"></div>
-                    <div class="record-label" th:text="${deck.name}"></div>
-                    <div class="tonearm">
+            <div th:each="deck : ${decks}">
+                <a th:href="@{/decks/{id}(id=${deck.id})}" class="deck-link">
+                    <div class="deck">
+                        <div class="record-wrapper">
+                            <div class="record-disc"></div>
+                            <div class="record-label" th:text="${deck.name}"></div>
+                            <div class="tonearm"></div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-
         </div>
 
 

@@ -31,24 +31,43 @@
     });
 
     // Add to Deck (channel knob)
-    document.getElementById("channel-knob")?.addEventListener("click", () => {
-        const wordId = document.querySelector(".deck-btn")?.dataset.wordid;
+    const deckPopup = document.getElementById('deck-popup');
+    const deckList = document.getElementById('deck-list');
 
-        if (wordId) {
-            fetch(`/deck/add/${wordId}`, { method: "POST" })
-                .then(res => {
-                    if (res.ok) {
-                        alert("✅ Word added to deck!");
-                        // channel-change effect
-                        const tv = document.querySelector(".tv-static");
-                        tv.classList.add("channel-change");
-                        setTimeout(() => tv.classList.remove("channel-change"), 600);
-                    } else {
-                        alert("⚠️ Could not add to deck.");
-                    }
-                });
-        }
+    // Open popup on “Add to Deck” knob click
+    document.getElementById("channel-knob")?.addEventListener("click", () => {
+        if (deckPopup) deckPopup.style.display = "flex";
     });
+
+    // Close popup
+    function closeDeckPopup() {
+        deckPopup.style.display = "none";
+    }
+
+    // Handle deck selection
+    deckList?.addEventListener("click", (e) => {
+        const selectedDeck = e.target.closest(".popup-deck");
+        const wordId = document.querySelector(".deck-btn")?.dataset.wordid;
+        if (!selectedDeck || !wordId) return;
+
+        const deckId = selectedDeck.dataset.deckId;
+
+        fetch(`/decks/${deckId}/flashcards/dictionary`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: wordId }) // adjust to your WordDto
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("✅ Added to deck!");
+                    closeDeckPopup();
+                } else {
+                    alert("⚠️ Could not add to deck.");
+                }
+            })
+            .catch(err => console.error(err));
+    });
+
 
 
 

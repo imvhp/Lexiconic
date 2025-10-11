@@ -48,10 +48,6 @@ public class FlashCardController {
         return flashCardMapper.toDto(flashCard);
     }
 
-    @DeleteMapping
-    public void deleteFlashCard(@PathVariable UUID deckId, @RequestBody FlashCardDto flashCardDto) {
-        flashCardService.delete(flashCardMapper.toEntity(flashCardDto), deckId);
-    }
 
     @PostMapping("/dictionary")
     public FlashCardDto wordToFlashCardDto(

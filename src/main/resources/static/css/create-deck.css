@@ -1,0 +1,332 @@
+.create-deck-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 3rem;
+    padding: 2rem;
+    background-color: #fffaf2;
+    border-radius: 20px;
+    font-family: 'VT323', monospace;
+}
+
+/* Form should not affect layout */
+.create-deck-container form {
+    display: contents;
+}
+
+/* LEFT SECTION (Deck + Inputs) */
+.deck-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Deck name + description fields */
+.deck-inputs {
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.deck-inputs input,
+.deck-inputs textarea {
+    width: 100%;
+    background: #fffdf8;
+    border: 2px solid #e2cda0;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 0.95rem;
+    color: #3a2e1f;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.deck-inputs input:focus,
+.deck-inputs textarea:focus {
+    border-color: #fad77b;
+    box-shadow: 0 0 6px rgba(250, 215, 123, 0.5);
+}
+
+.deck-inputs textarea {
+    height: 70px;
+    resize: none;
+}
+
+/* RIGHT SECTION (Flashcards) */
+.flashcard-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.flashcard-form {
+    flex: 1;
+    background: #fff9ec;
+    border: 2px solid #e2cda0;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 5px 12px rgba(58,46,31,0.15);
+}
+
+.flashcard-form h2 {
+    font-family: 'VT323', monospace;
+    color: #3a2e1f;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.flashcard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Retro flashcard style */
+.flashcard-create {
+    background: #fefaf4;
+    border: 1px solid #e2cda0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.flashcard-create .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.flashcard-create label {
+    display: block;
+    font-size: 0.85rem;
+    color: #5e4b32;
+    margin-bottom: 4px;
+}
+
+.flashcard-create input,
+.flashcard-create textarea {
+    width: 100%;
+    border: 1px solid #e6d5b8;
+    background: #fffdf8;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-family: 'VT323', monospace;
+    color: #3a2e1f;
+    resize: none;
+    box-sizing: border-box;
+}
+
+#addFlashcardBtn {
+    display: block;
+    margin: 2rem auto 0;
+    background: #f4b5bd;
+    color: #5e4b32;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 0 #d94e4e;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+#addFlashcardBtn:hover {
+    background: #f4b5bd;
+    opacity: 0.9;
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 #d94e4e;
+}
+
+#addFlashcardBtn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #d94e4e;
+}
+
+.create-btn {
+    margin-top: 1rem;
+    background-color: #85d4e3;
+    color: #5e4b32;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.create-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+    .create-deck-container {
+        gap: 2rem;
+        padding: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .deck-section {
+        max-width: 350px;
+    }
+
+    .flashcard-section {
+        max-width: 500px;
+    }
+}
+
+/* Mobile breakpoint - stack vertically */
+@media (max-width: 768px) {
+    .create-deck-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .deck-section {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .deck {
+        width: 220px;
+        height: 220px;
+    }
+
+    .deck-inputs {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .flashcard-section {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .flashcard-form {
+        padding: 1.5rem;
+        width: 100%;
+    }
+
+    .flashcard-create .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+    .create-deck-container {
+        padding: 0.5rem;
+        border-radius: 12px;
+    }
+
+    .deck {
+        width: 180px;
+        height: 180px;
+    }
+
+    .record-wrapper {
+        width: 75%;
+        height: 75%;
+    }
+
+    .tonearm {
+        width: 80px;
+        height: 120px;
+        right: -25px;
+        top: -15px;
+    }
+
+    .flashcard-form {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .flashcard-form h2 {
+        font-size: 1.3rem;
+    }
+
+    .deck-inputs input,
+    .deck-inputs textarea {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .flashcard-create input,
+    .flashcard-create textarea {
+        padding: 6px 8px;
+        font-size: 0.9rem;
+    }
+
+    #addFlashcardBtn,
+    .create-btn {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+    }
+}
+
+.deck-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.deck-link:hover {
+    text-decoration: none;
+}
+
+.deck {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.deck:hover {
+    transform: scale(1.02);
+}
+
+/* Delete Deck Button Container */
+.content > div:has(form[method="post"] input[name="_method"][value="delete"]) {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-right: 0;
+}
+
+/* Delete Deck Button Styling */
+.delete.deck-btn {
+    background-color: #f4b5bd;
+    color: #5e4b32;
+    border: 2px solid #d94e4e;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.delete.deck-btn:hover {
+    background-color: #d94e4e;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.delete.deck-btn:active {
+    transform: scale(0.98);
+}

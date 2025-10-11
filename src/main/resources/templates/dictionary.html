@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="main-container">
-    <div th:replace="fragments/navbar :: sidebar"></div>
+    <div th:replace="~{fragments/navbar :: sidebar}"></div>
 
     <div class="content">
 
@@ -48,6 +48,23 @@
             <div class="knob" id="volume-knob" title="Flip Card"></div>
             <div class="knob" id="channel-knob" title="Add to Deck"></div>
         </div>
+        <!-- Add-to-Deck Popup -->
+        <div id="deck-popup" class="deck-popup">
+            <div class="popup-content">
+                <button class="close-btn" onclick="closeDeckPopup()">✕</button>
+                <h3>Select a Deck</h3>
+                <div class="deck-list" id="deck-list">
+                    <!-- Example deck (Thymeleaf) -->
+                    <div class="popup-deck" th:each="deck : ${decks}" th:data-deck-id="${deck.id}">
+                        <div class="record-small">
+                            <div class="record-disc"></div>
+                            <div class="record-label" th:text="${deck.name}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

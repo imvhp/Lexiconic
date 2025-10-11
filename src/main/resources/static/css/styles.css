@@ -130,6 +130,8 @@
     }
 }
 
+
+
 .add-deck-btn {
     background-color: #f4b5bd;
     border: 1px solid #2a2a2a;  /* dark border */
@@ -151,4 +153,45 @@
     transform: scale(1.05);
 }
 
+.navbar-nav {
+    flex-direction: row !important;
+    gap: 0.5rem;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 480px) {
+    /* Reduce spacing between plus and user icon */
+    .navbar-nav .nav-item:first-child {
+        margin-right: 0.5rem !important;
+    }
+
+    /* Make add-deck button slightly smaller on mobile */
+    .add-deck-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+    }
+
+    /* Adjust user icon size */
+    .navbar-nav .bi-person-circle {
+        font-size: 1.8rem !important;
+    }
+
+    /* Reduce navbar padding on mobile */
+    .navbar {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    /* Make logo slightly smaller */
+    .navbar-brand img {
+        height: 30px;
+    }
+
+    /* Adjust toggle button */
+    #toggle-btn {
+        padding-left: 0 !important;
+        margin-right: 0.5rem !important;
+    }
+}
 

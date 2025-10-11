@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add active class if href matches current path
         const href = link.getAttribute('href');
-        if (href === currentPath || (currentPath === '/' && href === '/home')) {
+
+        if (href === currentPath || currentPath.startsWith(href)) {
             link.classList.add('active');
         }
     });

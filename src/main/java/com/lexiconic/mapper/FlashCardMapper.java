@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 public class FlashCardMapper {
     public FlashCard toEntity(FlashCardDto dto){
         return new FlashCard(
-                dto.id(),
-                dto.word(),
-                dto.pronunciation(),
-                dto.partOfSpeech(),
-                dto.audio(),
-                dto.image(),
-                dto.definition(),
-                dto.example(),
+                dto.getId(),
+                dto.getWord(),
+                dto.getPronunciation(),
+                dto.getPartOfSpeech(),
+                dto.getAudio(),
+                dto.getImage(),
+                dto.getDefinition(),
+                dto.getExample(),
                 null,
                 null,
                 null,
