@@ -54,6 +54,9 @@
                 <button class="close-btn" onclick="closeDeckPopup()">✕</button>
                 <h3>Select a Deck</h3>
                 <div class="deck-list" id="deck-list">
+                    <div th:if="${decks == null}">
+                        <p>Please <a th:href="@{/auth/login(returnUrl=${currentUri})}">login</a> to save words</p>
+                    </div>
                     <!-- Example deck (Thymeleaf) -->
                     <div class="popup-deck" th:each="deck : ${decks}" th:data-deck-id="${deck.id}">
                         <div class="record-small">
@@ -68,6 +71,9 @@
     </div>
 </div>
 
+<script th:if="${word}" th:inline="javascript">
+    const currentWord = /*[[${word}]]*/ null;
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/navbar.js"></script>
 <script src="/js/dictionary.js"></script>

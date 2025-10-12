@@ -40,13 +40,16 @@ public class AuthController {
     }
 
     @GetMapping("/auth/login")
-    public String login(Model model) {
+    public String login(Model model,
+                        @RequestParam(required = false) String returnUrl) {
         model.addAttribute("user", new Users());
+        model.addAttribute("returnUrl", returnUrl);
         return "login";
     }
 
     @PostMapping("/auth/login")
     public String login(@ModelAttribute Users user,
+                        @RequestParam(required = false) String returnUrl,
                         HttpServletResponse response) {
         String token = userService.verify(user);
 
@@ -60,13 +63,17 @@ public class AuthController {
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
+        if(returnUrl != null && !returnUrl.isEmpty()) {
+            return "redirect:" + returnUrl;
+        }
+
         // redirect after login
         return "redirect:/home";
     }
 
 
     @PostMapping("/auth/logout")
-    public ResponseEntity<?> logout(HttpServletResponse response) {
+    public String logout(HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from("jwt", "")
                 .httpOnly(true)
                 .secure(false)
@@ -76,6 +83,6 @@ public class AuthController {
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        return ResponseEntity.ok("Logged out");
+        return "redirect:/auth/login";
     }
 }

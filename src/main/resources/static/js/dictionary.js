@@ -45,17 +45,17 @@
     }
 
     // Handle deck selection
+    // Handle deck selection
     deckList?.addEventListener("click", (e) => {
         const selectedDeck = e.target.closest(".popup-deck");
-        const wordId = document.querySelector(".deck-btn")?.dataset.wordid;
-        if (!selectedDeck || !wordId) return;
+        if (!selectedDeck || !currentWord) return;
 
         const deckId = selectedDeck.dataset.deckId;
 
         fetch(`/decks/${deckId}/flashcards/dictionary`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: wordId }) // adjust to your WordDto
+            body: JSON.stringify(currentWord)
         })
             .then(res => {
                 if (res.ok) {

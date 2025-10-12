@@ -5,6 +5,7 @@ import com.lexiconic.domain.entity.FlashCard;
 import com.lexiconic.domain.entity.Users;
 import com.lexiconic.repository.DeckRepository;
 import com.lexiconic.repository.FlashCardRepository;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,22 +17,23 @@ import java.util.UUID;
 @Service
 public class DeckService {
     private final DeckRepository deckRepository;
-    private final FlashCardRepository flashCardRepository;
     private final FlashCardService flashCardService;
+    private final UserContextService userContextService;
 
-    public DeckService(DeckRepository deckRepository, FlashCardRepository flashCardRepository, FlashCardService flashCardService) {
+    public DeckService(DeckRepository deckRepository, FlashCardService flashCardService, UserContextService userContextService) {
         this.deckRepository = deckRepository;
-        this.flashCardRepository = flashCardRepository;
         this.flashCardService = flashCardService;
+        this.userContextService = userContextService;
     }
 
-    public Deck create(Deck deck, Users owner) {
+    public Deck create(Deck deck) {
+        Users currentUser = userContextService.getCurrentUserOrThrow();
         if(deck.getId() != null) throw new IllegalArgumentException("id must be null");
         if(deck.getName() == null || deck.getName().isBlank()) throw new IllegalArgumentException("title must not be null or blank");
 
         if(deck.getFlashCards() == null || deck.getFlashCards().isEmpty() || deck.getFlashCards().size() < 2) throw new IllegalArgumentException("deck must contain at least 2 flashcards, " + deck.getFlashCards().size() + " given");
 
-        deck.setOwner(owner);
+        deck.setOwner(currentUser);
 
         LocalDateTime now = LocalDateTime.now();
         deck.setCreated(now);
@@ -50,8 +52,9 @@ public class DeckService {
 
     @Transactional
     public void update(Deck deck) {
-        Deck dbDeck = deckRepository.findById(deck.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Deck not found"));
+        Users currentUser = userContextService.getCurrentUserOrThrow();
+        Deck dbDeck = deckRepository.findByIdAndOwner(deck.getId(), currentUser);
+        if(dbDeck == null) throw new AccessDeniedException("Deck not found or access denied");
 
         // Update deck fields
         dbDeck.setName(deck.getName());
@@ -81,12 +84,14 @@ public class DeckService {
     }
 
 
-
-
     public void delete(Deck deck) {
-        Deck dbdeck = deckRepository.findById(deck.getId()).orElse(null);
+        Users currentUser = userContextService.getCurrentUserOrThrow();
+        Deck dbdeck = deckRepository.findByIdAndOwner(deck.getId(), currentUser);
         if(dbdeck != null) {
             deckRepository.delete(dbdeck);
+        }
+        else {
+            throw new AccessDeniedException("Deck not found or access denied");
         }
     }
 }
