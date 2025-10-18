@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const deckId = deckIdInput.value;
 
-            if (!confirm('Are you sure you want to delete this flashcard?')) {
+            if (!confirm('Are you sure you want to delete this flashcards?')) {
                 return;
             }
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => {
                     console.log('Response status:', response.status);
                     if (response.ok || response.status === 204) {
-                        const flashcardDiv = this.closest('.flashcard-create').parentElement;
+                        const flashcardDiv = this.closest('.flashcards-create').parentElement;
                         flashcardDiv.remove();
                         alert('Flashcard deleted successfully!');
                     } else {
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => {
                     console.log('Fetch error:', error);
-                    alert('Failed to delete flashcard: ' + error);
+                    alert('Failed to delete flashcards: ' + error);
                 });
         });
     });

@@ -17,7 +17,7 @@ public class UserContextService {
         this.userRepository = userRepository;
     }
 
-    private Users getCurrentUser() {
+    public Users getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             return null;

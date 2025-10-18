@@ -39,7 +39,7 @@ public class DeckService {
         deck.setCreated(now);
         deck.setUpdated(now);
 
-        // Link each flashcard to the deck
+        // Link each flashcards to the deck
         for (FlashCard card : deck.getFlashCards()) {
             card.setDeck(deck);
             card.setCreated(now);

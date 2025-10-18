@@ -52,7 +52,7 @@
 
         const deckId = selectedDeck.dataset.deckId;
 
-        fetch(`/decks/${deckId}/flashcards/dictionary`, {
+        fetch(`/decks/${deckId}/dictionary`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(currentWord)

@@ -1,0 +1,326 @@
+.flashcard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    color: #333;
+}
+
+.completion-card {
+    display: flex;
+    flex-direction: column; /* This is the key property */
+    align-items: center;   /* This will horizontally center the items */
+    gap: 1rem;             /* This adds nice spacing between the lines */
+    text-align: center;    /* Ensures text inside is centered */
+}
+
+.review-wrapper {
+    width: 100%;
+    max-width: 600px; /* This matches the max-width of your .flashcard */
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+}
+
+.deck-name {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.progress-info {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.card-stack {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+}
+
+.flashcard {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 600px;
+    height: 350px;
+    cursor: pointer;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(-180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    border: 2px solid #9c964a;
+    background-color: #fefcf3;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.flashcard-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.flashcard-image {
+    height: 160px;
+    width: auto;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.flashcard-word {
+    font-size: 2rem;
+    color: #85d4e3;
+    font-weight: bold;
+    margin: 0;
+}
+
+.flashcard-phonetic {
+    color: #9c964a;
+    font-style: italic;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.flashcard-pos {
+    background-color: #f4b5bd;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.audio-btn {
+    margin-top: 0.5rem;
+    padding: 8px 12px;
+    border: 2px solid #9c964a;
+    border-radius: 8px;
+    background: #ffd93d;
+    color: #2a2a2a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.audio-btn:hover {
+    background: #ffed4e;
+    transform: translateY(-2px);
+}
+
+.flashcard-text {
+    width: 100%;
+}
+
+.flashcard-definition {
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.flashcard-example-box {
+    width: 100%;
+    max-width: 450px;
+    margin: 0.2rem auto 0.2rem auto;
+    background-color: #fffbea;
+    border: 2px solid #fad77b;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: #444;
+    text-align: center;
+}
+
+.flashcard-example {
+    font-size: 0.95rem;
+    color: #444;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.flashcard.hidden {
+    display: none;
+}
+
+.flashcard.active {
+    display: block;
+}
+
+.review-buttons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    max-width: 600px;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.review-btn {
+    background-color: #cdc08c;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .flashcard {
+        height: 400px;
+    }
+
+    .flashcard-word {
+        font-size: 1.6rem;
+    }
+
+    .flashcard-phonetic {
+        font-size: 0.9rem;
+    }
+
+    .flashcard-definition {
+        font-size: 0.95rem;
+    }
+
+    .flashcard-example {
+        font-size: 0.85rem;
+    }
+
+    .review-header {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .deck-name {
+        font-size: 1.2rem;
+    }
+
+    .progress-info {
+        font-size: 0.95rem;
+    }
+
+    .review-btn {
+        padding: 0.3rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+    .flashcard-container {
+        min-height: 60vh;
+        padding: 1rem;
+    }
+
+    .flashcard {
+        height: 380px;
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+        padding: 20px;
+    }
+
+    .flashcard-word {
+        font-size: 1.4rem;
+    }
+
+    .flashcard-phonetic {
+        font-size: 0.85rem;
+    }
+
+    .flashcard-image {
+        height: 140px;
+    }
+
+    .flashcard-definition {
+        font-size: 0.9rem;
+    }
+
+    .flashcard-example-box {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .flashcard-example {
+        font-size: 0.8rem;
+    }
+
+    .review-header {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .deck-name {
+        font-size: 1.1rem;
+    }
+
+    .review-buttons {
+        gap: 0.6rem;
+        margin-top: 1rem;
+    }
+
+    .review-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}

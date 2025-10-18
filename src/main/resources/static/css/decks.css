@@ -19,12 +19,18 @@
 /* =========================
    Deck Grid
    ========================= */
+/* Default gap when sidebar is expanded (220px) */
 .deck-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4.5rem;
+    margin-bottom: 2rem;
 }
 
+/* When sidebar is minimized (60px), reduce gap */
+body.sidebar-minimized .deck-grid {
+    gap: 2.5rem;
+}
 /* =========================
    Deck Container (the orange background)
    ========================= */

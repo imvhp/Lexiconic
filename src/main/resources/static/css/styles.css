@@ -1,3 +1,8 @@
+
+/*
+#85d4e3, #f4b5bd, #9c964a, #cdc08c, #fad77b
+ */
+
 .main-container {
     display: flex;
     flex-direction: row;
@@ -54,7 +59,6 @@
 }
 
 
-
 #toggle-btn{
     background-color: transparent;
     cursor: pointer;
@@ -78,7 +82,7 @@
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .sidebar {
         display: none;
         position: fixed;
@@ -119,7 +123,7 @@
     margin-top: 13px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .navbar-nav .dropdown-menu {
         left: 50% !important;
         right: auto !important;
@@ -159,7 +163,7 @@
 }
 
 /* Responsive adjustments for small screens */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     /* Reduce spacing between plus and user icon */
     .navbar-nav .nav-item:first-child {
         margin-right: 0.5rem !important;

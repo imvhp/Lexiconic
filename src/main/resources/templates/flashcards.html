@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <div th:replace="~{fragments/head :: head}"></div>
+  <link rel="stylesheet" href="/css/flashcards.css">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="main-container">
+  <div th:replace="~{fragments/navbar :: sidebar}"></div>
+
+  <div class="content">
+    <div class="flashcard-container" th:if="${deck}">
+      <!-- Show congrats if NO cards due today -->
+      <div class="completion-card" th:styleappend="${hasDueCards} or ${viewMode} ? 'display: none;' : ''">
+        <h2>🎉 All Caught Up! 🎉</h2>
+        <p>No cards due for review today</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a th:href="@{/decks/{id}/flashcards/view(id=${deck.id})}" class="back-btn" style="text-decoration: none;">
+            View All Cards
+          </a>
+          <a th:href="@{/decks}" class="back-btn" style="text-decoration: none;">
+            Back to Decks
+          </a>
+        </div>
+      </div>
+
+      <!-- Show flashcards (review or view mode) -->
+      <div th:if="${hasDueCards} or ${viewMode}" class="review-wrapper">
+        <div class="review-header">
+          <span class="deck-name" th:text="${deck.name}">Deck Name</span>
+          <span class="progress-info">
+                <span id="currentCard">1</span> / <span th:text="${flashCards.size()}">10</span>
+            </span>
+        </div>
+
+        <div id="cardArea" class="card-stack">
+          <div th:each="flashcard, iterStat : ${flashCards}"
+               class="flashcard"
+               th:classappend="${iterStat.index == 0} ? 'active' : 'hidden'"
+               th:data-index="${iterStat.index}"
+               th:data-flashcard-id="${flashcard.id}">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <h2 class="flashcard-word" th:text="${flashcard.word}">Word</h2>
+                <p class="flashcard-phonetic" th:text="${flashcard.pronunciation}"></p>
+                <p class="flashcard-pos" th:text="${flashcard.partOfSpeech}"></p>
+                <button class="audio-btn" th:if="${flashcard.audio}"
+                        onclick="playAudio(this)"
+                        th:data-audio="${flashcard.audio}">
+                  🔊 Play
+                </button>
+              </div>
+
+              <div class="flashcard-back">
+                <img class="flashcard-image" th:if="${flashcard.image}" th:src="${flashcard.image}" alt="illustration">
+                <div class="flashcard-text">
+                  <p class="flashcard-definition" th:text="${flashcard.definition}"></p>
+                  <div class="flashcard-example-box" th:if="${flashcard.example}">
+                    <p class="flashcard-example">
+                      🎆 <span th:text="${flashcard.example}"></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review buttons - only show in review mode -->
+        <div class="review-buttons" th:if="!${viewMode}">
+          <button class="review-btn again" onclick="rateCard(0)">Again</button>
+          <button class="review-btn hard" onclick="rateCard(1)">Hard</button>
+          <button class="review-btn good" onclick="rateCard(2)">Good</button>
+          <button class="review-btn easy" onclick="rateCard(3)">Easy</button>
+          <button class="review-btn perfect" onclick="rateCard(4)">Perfect</button>
+        </div>
+
+        <!-- Back button - only show in view mode -->
+        <div th:if="${viewMode}" style="margin-top: 2rem; text-align: center;">
+          <a th:href="@{/decks}" class="back-btn" style="text-decoration: none;">
+            Back to Decks
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/flashcards.js"></script>
+</body>
+</html>

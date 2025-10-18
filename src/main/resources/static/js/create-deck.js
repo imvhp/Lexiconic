@@ -1,5 +1,5 @@
 const deckLabel = document.getElementById('deckLabel');
-const flashcardContainer = document.querySelector('.flashcard-container');
+const flashcardContainer = document.querySelector('.flashcards-container');
 const addFlashcardBtn = document.getElementById('addFlashcardBtn');
 
 // Update the label as the deck name changes
@@ -13,7 +13,7 @@ if (deckInput) {
 // Helper to dynamically add flashcards
 function addFlashcard() {
     // Count existing flashcards (including Thymeleaf-generated ones)
-    const flashcardIndex = flashcardContainer.querySelectorAll('.flashcard-create').length;
+    const flashcardIndex = flashcardContainer.querySelectorAll('.flashcards-create').length;
 
     const flashcardHtml = `
         <div class="flashcard-create">
@@ -46,13 +46,13 @@ function addFlashcard() {
         </div>
     `;
 
-    // Insert the new flashcard
+    // Insert the new flashcards
     flashcardContainer.insertAdjacentHTML('beforeend', flashcardHtml);
 }
 
 // Initialize with 2 default flashcards if container is empty
 document.addEventListener('DOMContentLoaded', () => {
-    const existingCards = flashcardContainer.querySelectorAll('.flashcard-create').length;
+    const existingCards = flashcardContainer.querySelectorAll('.flashcards-create').length;
 
     // Only add default cards if no cards exist (create mode)
     if (existingCards === 0) {

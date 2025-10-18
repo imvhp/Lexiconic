@@ -37,10 +37,9 @@ public class ReviewService {
             // easiness factor
             easiness = (float) Math.max(1.3, easiness + 0.1 - (5.0 - quality) * (0.08 + (5.0 - quality) * 0.02));
 
-            if(quality < 3){
+            if (review == null || quality < 3) {
                 repetitions = 0;
-            }
-            else{
+            } else {
                 repetitions += 1;
             }
             

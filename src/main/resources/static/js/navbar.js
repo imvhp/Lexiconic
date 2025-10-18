@@ -29,6 +29,18 @@ function handleResize() {
     }
 }
 
+// In your existing sidebar toggle code, add this:
+toggleBtn.addEventListener('click', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const body = document.body;
+
+    if (sidebar.classList.contains('minimize')) {
+        body.classList.add('sidebar-minimized');
+    } else {
+        body.classList.remove('sidebar-minimized');
+    }
+});
+
 window.addEventListener('resize', handleResize);
 handleResize();
 

@@ -47,7 +47,7 @@ public class DictionaryController {
         WordDto wordDto = dictionaryService.getWord(word);
         model.addAttribute("word", wordDto);
 
-        Users currentUser = userContextService.getCurrentUserOrThrow();
+        Users currentUser = userContextService.getCurrentUser();
         if(currentUser != null) {
             List<DeckDto> decks = deckRepository.findAllByOwner(currentUser)
                     .stream()

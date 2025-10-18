@@ -32,6 +32,10 @@
 
                     <button type="submit" class="create-btn"
                             th:text="${deck.id != null ? 'Update Deck' : 'Create Deck'}">Save</button>
+                    <a th:href="@{/decks/{id}/flashcards(id=${deck.id})}" class="btn btn-primary">
+                        Flashcards
+                    </a>
+
                 </div>
             </div>
 
@@ -40,11 +44,11 @@
                 <div class="flashcard-form">
                     <h2>Flashcards</h2>
                     <div class="flashcard-container">
-                        <div th:each="flashcard, iterStat : *{flashCards}">
+                        <div th:each="flashcards, iterStat : *{flashCards}">
                             <div class="flashcard-create" style="position: relative;">
                                 <button type="button" class="delete-btn"
                                         style="position: absolute; top: 10px; right: 10px;"
-                                        th:attr="data-card-id=${flashcard.id}">
+                                        th:attr="data-card-id=${flashcards.id}">
                                     <i class="bi bi-trash"></i>
                                 </button>
                                 <div class="form-grid">
